@@ -15,20 +15,20 @@
              <v-btn primary dark @click="search">Search</v-btn>
           </v-flex>
         </v-layout>
-                <v-flex xs4>
+          <v-flex xs4>
              <v-btn error dark @click="saveTweets" v-if="items.length > 0">Save tweets</v-btn>
           </v-flex>
           <v-layout row>
       <v-card>
         <v-list two-line>
-          <v-list-tile avatar ripple v-for="(item, index) in items" v-bind:key="item.tweet_text">
+          <v-list-tile avatar ripple v-for="(item, index) in items" v-bind:key="item.text">
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.tweet_text }}</v-list-tile-title>
+              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
               <v-list-tile-sub-title class="grey--text text--darken-4">{{ item.name }} ({{item.username}})</v-list-tile-sub-title>
-              <v-list-tile-sub-title>{{ item.location }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ item.date }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-list-tile-action-text>{{ item.created }}</v-list-tile-action-text>
+              <v-list-tile-action-text>{{ item.hashtags }}</v-list-tile-action-text>
               <v-icon class="grey--text text--lighten-1">star_border</v-icon>
             </v-list-tile-action>
             <v-divider v-if="index + 1 < items.length"></v-divider>

@@ -3,17 +3,33 @@
   <h4>My saved tweets on database</h4>
     <v-card-text>
       <v-container fluid>
+        <v-layout row>
+          <v-flex xs8>
+            <v-text-field
+              name="input-1"
+              label="search on twitter"
+              id="testing"
+              v-model="searchTerm"
+            ></v-text-field>
+          </v-flex>
+           <v-flex xs4>
+             <v-btn primary dark @click="search">Search</v-btn>
+          </v-flex>
+        </v-layout>
+          <v-flex xs4>
+             <v-btn error dark @click="exportTweets" v-if="items.length > 0">Export tweets(xlsx)</v-btn>
+          </v-flex>
           <v-layout row>
       <v-card>
         <v-list two-line>
-          <v-list-tile avatar ripple v-for="(item, index) in items" v-bind:key="item.tweet_text">
+          <v-list-tile avatar ripple v-for="(item, index) in items" v-bind:key="item.text">
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.tweet_text }}</v-list-tile-title>
+              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
               <v-list-tile-sub-title class="grey--text text--darken-4">{{ item.name }} ({{item.username}})</v-list-tile-sub-title>
-              <v-list-tile-sub-title>{{ item.location }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ item.date }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-list-tile-action-text>{{ item.created }}</v-list-tile-action-text>
+              <v-list-tile-action-text>{{ item.hashtags }}</v-list-tile-action-text>
               <v-icon class="grey--text text--lighten-1">star_border</v-icon>
             </v-list-tile-action>
             <v-divider v-if="index + 1 < items.length"></v-divider>
@@ -30,19 +46,31 @@
     export default {
         data () {
             return {
+                searchTerm: '',
                 items: []
             }
         },
-        created () {
-           axios.get('http://localhost:3006/list')
+        methods: {
+            search () {
+            axios.get('http://localhost:3006/search?q='+this.searchTerm)
             .then( (response) => {
                 this.items = response.data.reverse()
             })
             .catch( (error) => {
                 console.log(error);
             }); 
+            },
+            exportTweets () {
+            axios.post('http://localhost:3006/export', this.items)
+            .then( (response) => {
+                console.log('exported!')
+            })
+            .catch( (error) => {
+                console.log(error);
+            }); 
+            }
+            }
         }
-    }
 </script>
 <style lang="">
     
