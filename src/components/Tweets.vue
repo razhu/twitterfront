@@ -60,8 +60,9 @@
                 console.log(error);
             }); 
             },
+            
             exportTweets () {
-            axios.post('http://localhost:3006/export', this.items)
+            axios.get('http://localhost:3006/export')
             .then( (response) => {
                 console.log('exported!')
             })
