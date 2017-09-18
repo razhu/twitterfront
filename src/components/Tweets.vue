@@ -17,7 +17,7 @@
           </v-flex>
         </v-layout>
           <v-flex xs4>
-             <v-btn error dark @click="exportTweets" v-if="items.length > 0">Export tweets(xlsx)</v-btn>
+             <v-btn @click="exportTweets" v-if="items.length > 0">Export tweets(xlsx)</v-btn>
           </v-flex>
           <v-layout row>
       <v-card>
